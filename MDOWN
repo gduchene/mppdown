@@ -1,0 +1,400 @@
+%mdown 2.0
+%? mdown core features
+%? Nhat Minh Lê <nhat.minh.le@huoc.org>
+
+# Meta-info markup
+
+## Comments
+
+Comments are lines beginning (at column 0) with any number of percent
+signs, followed by space.
+
+:Rationale:
+  This reserves constructs for directives without hurting readability.
+
+## Directives
+
+Directives are lines beginning (at column 0) with a percent sign, not
+followed by space. Most directives are ignored by mdown.
+
+:Rationale:
+  Most static preprocessors operate on lines. Such directives leave
+  the opportunity for such preprocessors to be added. For more complex
+  handling of contents, you should use macros and environments with
+  appropriate dynamic element translation.
+
+### Version directive
+
+Each mdown document must start with the version directive `%mdown`,
+followed by the version of the mdown language in use in the
+document. The only valid value defined by this specification is `2.0`.
+
+Only comments and blank lines are allowed before the version
+directive.
+
+:Rationale:
+  The intent is quite obviously that new versions of mdown will
+  increment the version number.
+
+### Line directives
+
+The `%#` directive followed by a numeric (all-digit) word `N`
+indicates that the following line should be referred to as the `N`^th
+line of the current file.
+
+The `%#` directive followed by a numeric word `N` and an arbitrary
+string (with leading spaces stripped) specifies a new file name in
+addition to the new line number.
+
+### Bibliographic directives
+
+The first three occurrences of the `%?` directive are special to mdown
+and recognized as bibliograhic information. In order, they specify, in
+plain text, the name of the document, the name of the author or
+authors, and the date of publication.
+
+:Rationale:
+  Plain text was chosen so that this information can be handled
+  separately without having to invoke the mdown system. Since many
+  output formats do not support formatting in titles anyway, the need
+  for such support in mdown was deemed negligible.
+
+### Annotation alias directives
+
+A simple annotation (which takes no argument) can be defined by making
+an alias of another annotation. It is the only way to specify
+arguments for inline annotations.
+
+An inline annotation alias is a `%@` directive followed by the name of
+the annotation being defined, an equal sign, and the annotation name
+and arguments of the aliased annotation.
+
+A block annotation alias is a `%@@` directive that follows the same
+syntax.
+
+Definitions take effect immediately. Redefinitions are allowed and
+take effect till the next redefinition or the end of the document.
+
+
+# Inline markup
+
+## Styling
+
+| Symbol   | Syntax      | Effects                | Constraints            |
++----------+-------------+------------------------+------------------------+
+| `\`      | `\a`        | escaped character      |                        |
+| `\`      | `a\ b`      | unbreakable space      | before whitespace      |
+| `\`      | `line \`    | forced line break      | at end of line         |
+| `*`      | `*a*`       | emphasis               |                        |
+| `**`     | `**a**`     | strong emphasis        |                        |
+| `***`    | `***a***`   | very strong emphasis   |                        |
+| `'`      | `'a'`       | alternate style        | lead-in/out            |
+| `''`     | `''a''`     | strong alternate style | lead-in/out            |
+| `` ` ``  | `` `a` ``   | code                   | matching, verbatim     |
+| `$`      | `$a$`       | math                   | verbatim               |
+| `^`      | `^a`        | superscript            | free group             |
+| `@`      | `@c`        | special character      | symbol, matching       |
+| `@`      | `@a`        | annotation             | free group             |
+| `@`      | `@`         | repeat annotations     | free group             |
+| `@"`     | `@"a"`      | inline quote           |                        |
+| `@_`     | `@_a_`      | subscript              |                        |
+| `@`      | `@a b`      | annotation             | named, free group      |
+| `{}`     | `{a}`       | group                  | where free group       |
+
+Some notes:
+
+- Lead-in/out means the opening/closing symbol has to appear at word
+  boundary on the external side of the element: that is, the opening
+  symbol has to be preceded by white space or a punctuator that is
+  actually interpreted by mdown, and the closing symbol must be
+  followed by such a character.
+
+- Matching means there can be more than one delimiter, but their
+  number has to agree in a single element.
+
+- Free group means the construct applies to the next syntactical
+  group, which defaults to the next word.
+
+- Named means the construct takes a name, which is an alphanumeric
+  sequence.
+
+:Rationale:
+  The line-breaking character was changed from mdown-1 following many
+  complaints that it was hard to spot and triggered hard-to-understand
+  errors.
+
+  Emphasis was changed from two different characters to a single
+  stackable one for homogeneity, resemblance to [?Markdown], and
+  because the slash is much used in addresses and paths.
+
+  The alternate style construct was introduced after much
+  consideration concluding that people don't usually care what
+  language a word is actually written in, just that it is not native
+  from the current language of the document. Besides, I believe it is
+  natural for most people to pronounce unknown foreign words according
+  to the rules of their native language, not some foreign rules they
+  may or may not know. Thus, the alternate style replaces mdown-1
+  foreign phrase constructs as well as language tags.
+
+  The math symbol is taken from TeX.
+
+## Links
+
+| Symbol   | Syntax                 | Effects                   |
++----------+------------------------+---------------------------+
+| `[]`     | `[text]`               | implicit hypertext link   |
+|          | `[text](address)`      | explicit hypertext link   |
+|          | `[text|label]`         | indirect hypertext link   |
+| `[!]`    | `[!text]`              | implicit substitution     |
+|          | `[!text](address)`     | explicit substitution     |
+|          | `[!text|label]`        | indirect substitution     |
+| `[^]`    | `[^label]`             | footnote                  |
+| `[?]`    | `[?label]`             | bibliographic note        |
+
+:Rationale:
+  Implicit links replace the mdown-1 syntax for anchors: this is more
+  consistent. Anchors have been changed to a declaration syntax.
+
+  The indirect syntax was changed because of the introduction of
+  implicit links. It resembles the Wiki syntax, but reversed, which
+  may be awkward for some users, but I for one think that the Wiki
+  order is not natural for semantic links.
+
+## Constraints
+
+Inline elements, even code spans, cannot cross block boundaries.
+
+## Nesting
+
+Markup may nest but the output format is free to ignore any nesting
+and only consider the outermost level of inline markup for
+translation.
+
+Therefore, it is advised that links always be put at the outermost
+level, and styling be inlined within the link text.
+
+Though the syntax allows same constructs to nest, it does not usually
+make sense to do so, and implementations are encouraged to disregard
+such markup.
+
+:Rationale:
+  These rules allow parts of links to be emphasized or turned into
+  images, while still providing a fallback for output environments
+  where this kind of thing is not supported, in which case, the link
+  behavior will prevail over the rest.
+
+
+# Block markup
+
+Indentation is made through steps of two spaces or right angle
+brackets. An indented block is a block where each line (except the
+first, and except blank lines) is indented by two spaces (added to the
+current indentation level). In the following descriptions, the
+beginning of a line (as in "line begins with") means at the current
+level of indentation.
+
+## Paragraphs
+
+Paragraphs are unindented blocks (indented at the current indentation
+level) delimited by blank lines or other constructs (in other words,
+it is the default construct).
+
+If a paragraph is preceded by blank lines, then it is a full
+paragraph; if it is preceded by another block with no intervening
+blank line, then it is continuation paragraph. Output formats are not
+required to make a distinction. Comments do *not* count as blank
+lines, meaning you can force a continuation by putting a comment in
+place of a blank line.
+
+Paragraphs cannot contain other blocks.
+
+:Rationale:
+  The rules for continuation paragraphs have been simplified so that
+  each paragraph can now be treated separately. Continuation
+  paragraphs are useful either in order to remove extra spacing in
+  formats that use spacing to indicate paragraphs (e.g. most web
+  designs) or ugly indentation in formats that use indentation to mark
+  new paragraphs (e.g. LaTeX).
+
+  This now lets you make compact lists simply by not leaving a blank
+  line between the preceding paragraph and the list.
+
+## Headings
+
+Headings are lines beginning at column 0 with one to five hash signs,
+the number of which determine the level (one being the most important)
+of the heading.
+
+Headings cannot contain other blocks.
+
+:Rationale:
+  After much thinking, the old wiki-like syntax was replaced with
+  a [?Markdown]-compatible syntax, partly because in the end, I find
+  it better-looking, partly since environments have had their syntax
+  changed.
+
+## Quotations
+
+Quotations are indented blocks where the first line begins with
+a right angle bracket and one space (each subsequent line may be
+indented using such brackets as well, by definition of indentation).
+
+## Verbatim blocks
+
+Verbatim blocks are indented blocks where the first line begins with
+two spaces (each subsequent line may be indented using such brackets
+as well, by definition of indentation).
+
+The content of verbatim blocks are not parsed by mdown.
+
+## Math blocks
+
+Math blocks are indented blocks where the first begins with two
+dollars and one space.
+
+The content of math blocks are not parsed by mdown.
+
+## Lists
+
+Lists are made of consecutive items. The syntax of the items determine
+the type of the list.
+
+### Unordered lists
+
+Unordered list items are indented blocks where the first line begins
+with a hyphen followed by one space.
+
+### Ordered lists
+
+Ordered list items are indented blocks where the first line begins
+with an all-digit word (the number thus formed shall not be
+meaningful, except maybe for the first element) followed by one dot
+then one space.
+
+### Associative lists
+
+Associative list items are made of two blocks: one line (the head)
+followed by an indented block (the body) where the first line
+begins with a colon and one space.
+
+## Tables
+
+Tables are made of consecutive rows.
+
+### Table rows
+
+Table rows are indented blocks where the first line begins with
+a vertical bar followed by a space. A table row contains table cells.
+
+### Simple table cells
+
+Simple table cells are inline elements ending with a space and
+a vertical bar. As inline elements, simple cells cannot contain
+blocks.
+
+### Block table cells
+
+Block table cells are indented blocks where the first line begins with
+a plus sign followed by a space.
+
+## Environments
+
+Environments are indented blocks where the first line begins with
+a colons followed by the class (environment name; a word), some
+optional argument text, another colon, and an optional caption
+text. Subsequent lines make up the contents of the environment.
+
+## Block annotations
+
+Blocks can be annotated. An annotation is a unindented line beginning
+with two at signs, followed by the annotation name (a word), and some
+optional argument text.
+
+## Declarations
+
+Some mdown constructs reference a label. Such a label is defined using
+a declaration construct, which consists of an indented line where the
+beginning with one space followed by the entity being declared. The
+entity name is marked up the same way it is written when referenced,
+with the text part and the eventual vertical bar separator
+removed. The rest of the declaration block is treated verbatim as
+a reference to some resource.
+
+Declarations are allowed for links, anchors, substitutions, and
+bibliographic references.
+
+Anchors share the syntax of the corresponding links (i.e. a fragment
+name beginning with a hash sign) and have no declaration body. The
+declaration point is taken as the resource for the anchor.
+
+## Indirect blocks
+
+Indirect blocks are like declarations, except they allow inline
+content and are used for footnotes and bibliographic references.
+
+The first line of an indirect block follows the same syntax as
+a declaration; subsequent lines are non-indented (i.e. as they would
+in a paragraph). Hence, an indirect block cannot contain other blocks.
+
+
+# Translation semantics
+
+Are listed only things that are not obvious, for everything else, you
+can ask me if you can't figure out, I may have forgotten some things.
+
+## Implicit links handling
+
+When using implicit links, the actual text and address are both
+inferred from the given link.
+
+1. If there is a label defined with the same name, then its address is
+  used and the label itself is taken as the text.
+
+2. Else, the link is taken to be an address.
+
+3. For internal links: if there is a title associated with the
+  referenced entity, then it is used as the text (for an anchor, it is
+  the associated heading; for a document, it is its title; for a file
+  it is its file name); else, the link is used.
+
+4. For external links: the link is used as the text.
+
+:Rationale:
+  With the introduction of the internal address space, implicit links
+  are intended to become the main type of links internal to
+  a collection of mdown documents (e.g. a website). These were
+  obviously inspired by Wiki links in which the explicit text is not
+  often spelled out.
+
+## Translation of dynamic elements
+
+mdown delegates the exact handling of some elements (called dynamic
+elements) to the outer environment in which the resulting document
+will be used. These elements are annotations, environments, and
+links. A default translation is used if the output format does not
+support such processing.
+
+This is intended to be used in conjunction with some kind of
+scripting, to produce documents with partly-generated contents or
+customizable styles.
+
+For example, an implementation could generate a LaTeX document with
+native macro and environment calls. Or it could produce a HTML
+document with macros and environments translated to CSS classes. But
+the same document could be translated to a mixed PHP/HTML document,
+replacing macros and environments with calls to server-side functions
+for contents generation.
+
+:Rationale:
+  This extends the simple environment translation mechanism of mdown-1
+  into a more flexible interface, which will hopefully allow better
+  integration with other tools and frameworks (mainly, website
+  frameworks).
+
+
+# References
+
+ [?Crossmark] http://dev.laptop.org/git?p=users/krstic/docformat;a=blob_plain;f=crossmark-spec.txt;hb=HEAD
+ [?Markdown] http://daringfireball.net/projects/markdown/
+ [?Pandoc] http://johnmacfarlane.net/pandoc/
+ [?ReST] http://docutils.sourceforge.net/rst.html
