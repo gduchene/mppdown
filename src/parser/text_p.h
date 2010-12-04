@@ -21,13 +21,14 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "../elements.h"
 
 namespace qi = boost::spirit::qi;
+namespace ph = boost::phoenix;
 
-struct text_p : qi::grammar<iiterator, text_t()> {
-    qi::rule<iiterator, text_t()> text_;
-    qi::rule<iiterator, stext_t()> stext_;
-    qi::rule<iiterator, std::wstring()> ptext_;
+struct text_p : qi::grammar<iiterator, text_t(std::wstring)> {
+    qi::rule<iiterator, text_t(std::wstring)> text_;
+    qi::rule<iiterator, stext_t(std::wstring)> stext_;
+    qi::rule<iiterator, std::wstring(std::wstring)> ptext_;
     qi::rule<iiterator, wchar_t()> echar_;
-    qi::rule<iiterator, wchar_t()> rchar_;
+    qi::rule<iiterator, wchar_t(std::wstring)> rchar_;
 
     text_p();
 };

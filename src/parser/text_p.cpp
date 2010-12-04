@@ -17,18 +17,19 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 text_p::text_p() : text_p::base_type(text_) {
     using namespace qi;
+    using namespace ph;
     using qi::standard_wide::char_;
 
-    text_ = stext_ | ptext_;
+    text_ = stext_(_r1) | ptext_(_r1);
 
-    stext_ = lit("***") >> attr(VSEMPH) >> +text_ >> "***"
-           | lit("**") >> attr(SEMPH) >> +text_ >> "**"
-           | lit('*') >> attr(EMPH) >> +text_ >> '*'
-           | lit("''") >> attr(SALT) >> +text_ >> "''"
-           | lit('\'') >> attr(ALT) >> +text_ >> '\''
-           | lit('`') >> attr(CODE) >> +ptext_ >> '`';
+    stext_ = lit("***") >> attr(VSEMPH) >> +text_(val(L"*'`")) >> "***"
+           | lit("**") >> attr(SEMPH) >> +text_(val(L"*'`")) >> "**"
+           | lit('*') >> attr(EMPH) >> +text_(val(L"*'`")) >> '*'
+           | lit("''") >> attr(SALT) >> +text_(val(L"*'`"))>> "''"
+           | lit('\'') >> attr(ALT) >> +text_(val(L"*'`")) >> '\''
+           | lit('`') >> attr(CODE) >> +ptext_(val(L"`")) >> '`';
 
-    ptext_ = +(echar_ | rchar_);
+    ptext_ = +(echar_ | rchar_(_r1));
     echar_ = lit('\\') >> char_;
-    rchar_ = char_ - char_(L"*'`");
+    rchar_ = char_ - char_(_r1);
 }

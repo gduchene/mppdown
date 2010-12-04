@@ -15,7 +15,11 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 #ifndef _MPPDOWN_DOCUMENT_P
 #define _MPPDOWN_DOCUMENT_P
+#include <boost/spirit/include/qi.hpp>
 #include "text_p.h"
+
+namespace qi = boost::spirit::qi;
+namespace ph = boost::phoenix;
 
 struct document_p : qi::grammar<iiterator, document_t()> {
     qi::rule<iiterator, document_t()> document_;
