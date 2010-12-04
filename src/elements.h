@@ -29,7 +29,9 @@ typedef boost::variant<boost::recursive_wrapper<stext_t>, std::wstring> text_t;
 enum stattribute_t {
     EMPH,
     SEMPH,
-    VSEMPH
+    VSEMPH,
+    ALT,
+    SALT
 };
 
 struct stext_t {

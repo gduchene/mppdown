@@ -23,9 +23,11 @@ text_p::text_p() : text_p::base_type(text_) {
 
     stext_ = lit("***") >> attr(VSEMPH) >> +text_ >> "***"
            | lit("**") >> attr(SEMPH) >> +text_ >> "**"
-           | lit('*') >> attr(EMPH) >> +text_ >> '*';
+           | lit('*') >> attr(EMPH) >> +text_ >> '*'
+           | lit("''") >> attr(SALT) >> +text_ >> "''"
+           | lit('\'') >> attr(ALT) >> +text_ >> '\'';
 
     ptext_ = +(echar_ | rchar_);
     echar_ = lit('\\') >> char_;
-    rchar_ = char_ - char_(L"*");
+    rchar_ = char_ - char_(L"*'");
 }
