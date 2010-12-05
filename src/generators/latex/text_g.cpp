@@ -26,7 +26,8 @@ latex::text_g::text_g() : text_g::base_type(text_) {
            | &uint_(VSEMPH) << L"\\texttt{\\textit{\\emph{" << +text_ << L"}}}"
            | &uint_(ALT) << L"\\texttt{" << +text_ << '}'
            | &uint_(SALT) << L"\\texttt{\\textbf{" << +text_ << L"}}"
-           | &uint_(CODE) << L"\\texttt{" << +text_ << '}';
+           | &uint_(CODE) << L"\\texttt{" << +text_ << '}'
+           | &uint_(MATH) << L"$" << +text_ << '$';
 
     ptext_ = +char_;
 }

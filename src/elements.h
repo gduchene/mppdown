@@ -32,7 +32,8 @@ enum stattribute_t {
     VSEMPH,
     ALT,
     SALT,
-    CODE
+    CODE,
+    MATH
 };
 
 struct stext_t {

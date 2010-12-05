@@ -22,12 +22,13 @@ text_p::text_p() : text_p::base_type(text_) {
 
     text_ = stext_(_r1) | ptext_(_r1);
 
-    stext_ = lit("***") >> attr(VSEMPH) >> +text_(val(L"*'`")) >> "***"
-           | lit("**") >> attr(SEMPH) >> +text_(val(L"*'`")) >> "**"
-           | lit('*') >> attr(EMPH) >> +text_(val(L"*'`")) >> '*'
-           | lit("''") >> attr(SALT) >> +text_(val(L"*'`"))>> "''"
-           | lit('\'') >> attr(ALT) >> +text_(val(L"*'`")) >> '\''
-           | lit('`') >> attr(CODE) >> +ptext_(val(L"`")) >> '`';
+    stext_ = lit("***") >> attr(VSEMPH) >> +text_(_r1) >> "***"
+           | lit("**") >> attr(SEMPH) >> +text_(_r1) >> "**"
+           | lit('*') >> attr(EMPH) >> +text_(_r1) >> '*'
+           | lit("''") >> attr(SALT) >> +text_(_r1)>> "''"
+           | lit('\'') >> attr(ALT) >> +text_(_r1) >> '\''
+           | lit('`') >> attr(CODE) >> +ptext_(val(L"`")) >> '`'
+           | lit('$') >> attr(MATH) >> +ptext_(val(L"$")) >> '$';
 
     ptext_ = +(echar_ | rchar_(_r1));
     echar_ = lit('\\') >> char_;
