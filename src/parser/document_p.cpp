@@ -16,5 +16,5 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "document_p.h"
 
 document_p::document_p() : document_p::base_type(document_) {
-    document_ = +text_(ph::val(L"*'`$^"));
+    document_ = +text_(ph::val(L"*'`$^@"));
 }

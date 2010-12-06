@@ -34,7 +34,8 @@ enum stattribute_t {
     SALT,
     CODE,
     MATH,
-    SUPER
+    SUPER,
+    QUOTE
 };
 
 struct stext_t {
