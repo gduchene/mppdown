@@ -29,7 +29,7 @@ latex::text_g::text_g() : text_g::base_type(text_) {
            | &uint_(CODE) << L"\\texttt{" << +text_ << '}'
            | &uint_(MATH) << L"$" << +text_ << '$'
            | &uint_(SUPER) << L"^{" << +text_ << '}'
-           | &uint_(QUOTE) << L"_{" << +text_ << '}';
+           | &uint_(QUOTE) << L"``" << +text_ << L"''";
 
     ptext_ = +char_;
 }

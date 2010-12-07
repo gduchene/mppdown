@@ -31,7 +31,7 @@ text_p::text_p() : text_p::base_type(text_) {
            | lit('$') >> attr(MATH) >> +ptext_(val(L"$")) >> '$'
            | lit("^{") >> attr(SUPER) >> +text_(val(L"*'`$^}")) >> '}'
            | lit('^') >> attr(SUPER) >> +text_(val(L"*'`$ "))
-           | lit(L"@_") >> attr(QUOTE) >> +text_(val(L"*'`$_")) >> '_';
+           | lit(L"@\"") >> attr(QUOTE) >> +text_(val(L"*'`$@\"")) >> '"';
 
     ptext_ = +(echar_ | rchar_(_r1));
     echar_ = lit('\\') >> char_;
