@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010, Grégoire Duchêne <gduchene@fastmail.net>
+Copyright (c) 2010, 2011, Grégoire Duchêne <gduchene@fastmail.net>
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
@@ -25,7 +25,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 namespace ka = boost::spirit::karma;
 namespace qi = boost::spirit::qi;
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
     using namespace std;
 
     if (argc != 2)
