@@ -29,10 +29,10 @@ text_p::text_p() : text_p::base_type(text_) {
            | lit('\'') >> attr(ALT) >> +text_(_r1) >> '\''
            | lit('`') >> attr(CODE) >> +ptext_(val(L"`")) >> '`'
            | lit('$') >> attr(MATH) >> +ptext_(val(L"$")) >> '$'
-           | lit("^{") >> attr(SUPER) >> +text_(val(L"*'`$^}")) >> '}'
+           | lit("^{") >> attr(SUPER) >> +text_(val(L"*'`$^}[")) >> '}'
            | lit('^') >> attr(SUPER) >> +text_(val(L"*'`$ "))
-           | lit(L"@\"") >> attr(QUOTE) >> +text_(val(L"*'`$@\"")) >> '"'
-           | lit(L"@_") >> attr(SUB) >> +text_(val(L"*'`$@_")) >> '_';
+           | lit(L"@\"") >> attr(QUOTE) >> +text_(val(L"*'`$@\"[")) >> '"'
+           | lit(L"@_") >> attr(SUB) >> +text_(val(L"*'`$@_[")) >> '_';
 
     pstext_ = lit('[') >> attr(LINK) >> +text_(val(L"]")) >> ']' >>
               lit('(') >> ptext_(val(L")")) >> ')';
