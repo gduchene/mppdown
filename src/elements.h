@@ -44,10 +44,22 @@ struct stext_t {
     std::vector<text_t> value;
 };
 
+struct pstext_t {
+    stattribute_t attribute;
+    std::wstring parameter;
+    std::vector<text_t> value;
+};
+
 typedef std::vector<text_t> document_t;
 
 BOOST_FUSION_ADAPT_STRUCT (stext_t,
                            (stattribute_t, attribute)
+                           (std::vector<text_t>, value)
+                          )
+
+BOOST_FUSION_ADAPT_STRUCT (pstext_t,
+                           (stattribute_t, attribute)
+                           (std::wstring, parameter)
                            (std::vector<text_t>, value)
                           )
 #endif
