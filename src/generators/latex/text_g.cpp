@@ -19,7 +19,7 @@ latex::text_g::text_g() : text_g::base_type(text_) {
     using namespace ka;
     using ka::standard_wide::char_;
 
-    text_ = stext_ | ptext_;
+    text_ = stext_ | pstext_ | ptext_;
     
     stext_ = &uint_(EMPH) << L"\\emph{" << +text_ << '}'
            | &uint_(SEMPH) << L"\\textit{\\emph{" << +text_ << L"}}"
@@ -31,6 +31,9 @@ latex::text_g::text_g() : text_g::base_type(text_) {
            | &uint_(SUPER) << L"^{" << +text_ << '}'
            | &uint_(QUOTE) << L"``" << +text_ << L"''"
            | &uint_(SUB) << L"_{" << +text_ << '}';
+
+    pstext_ = &uint_(LINK) << L"\\href{" << ptext_[_1 = ph::at_c<2>(_val)] 
+                           << L"}{" << (+text_)[_1 = ph::at_c<1>(_val)] << '}';
 
     ptext_ = +char_;
 }

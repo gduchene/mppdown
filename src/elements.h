@@ -24,7 +24,10 @@ typedef std::wstring::iterator iiterator;
 typedef std::back_insert_iterator<std::wstring> oiterator;
 
 struct stext_t;
-typedef boost::variant<boost::recursive_wrapper<stext_t>, std::wstring> text_t;
+struct pstext_t;
+typedef boost::variant<boost::recursive_wrapper<stext_t>, 
+                       boost::recursive_wrapper<pstext_t>,
+                       std::wstring> text_t;
 
 enum stattribute_t {
     EMPH,
@@ -36,7 +39,8 @@ enum stattribute_t {
     MATH,
     SUPER,
     QUOTE,
-    SUB
+    SUB,
+    LINK
 };
 
 struct stext_t {
@@ -46,8 +50,8 @@ struct stext_t {
 
 struct pstext_t {
     stattribute_t attribute;
-    std::wstring parameter;
     std::vector<text_t> value;
+    std::wstring parameter;
 };
 
 typedef std::vector<text_t> document_t;
@@ -59,7 +63,7 @@ BOOST_FUSION_ADAPT_STRUCT (stext_t,
 
 BOOST_FUSION_ADAPT_STRUCT (pstext_t,
                            (stattribute_t, attribute)
-                           (std::wstring, parameter)
                            (std::vector<text_t>, value)
+                           (std::wstring, parameter)
                           )
 #endif
