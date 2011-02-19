@@ -36,7 +36,8 @@ int main(int argc, char** argv) {
 
     general.add_options()
         ("help,h", "produce this message")
-        ("input,i", "set the input file");
+        ("input,i", po::value<string>(), "set the input file")
+        ("output,o", po::value<string>(), "set the output file");
 
     pgeneral.add("input", -1);
 
@@ -89,6 +90,19 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    wcout << output << flush;
+    if (!variables.count("output"))
+        wcout << output << flush;
+    else {
+        wofstream ofile(variables["output"].as<string>().c_str());
+
+        if (ofile.fail()) {
+            cerr << "mppdown: error while opening the output file" << endl;
+            return 1;
+        }
+
+        ofile << output;
+        ofile.close();
+    }
+
     return 0;
 }
