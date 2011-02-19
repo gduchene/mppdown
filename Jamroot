@@ -1,0 +1,1 @@
+exe mppdown : [ glob-tree *.cpp ] ;
