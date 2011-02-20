@@ -1,1 +1,3 @@
 exe mppdown : [ glob-tree *.cpp ] : <linkflags>-lboost_program_options ;
+
+install dist : mppdown : <location>/usr/bin : <variant>release ;
