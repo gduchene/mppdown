@@ -37,7 +37,7 @@ text_p::text_p() : text_p::base_type(text_) {
     pstext_ = lit('[') >> attr(LINK) >> +text_(val(L"]")) >> ']' >>
               lit('(') >> ptext_(val(L")")) >> ')';
 
-    atom_ = lit(L"\\ ") >> attr(NBSP);
+    atom_ = lit(L"\\ ") >> attr(NBSP) | lit('\\') >> eol >> attr(NEWLINE);
 
     ptext_ = +(echar_ | rchar_(_r1));
     echar_ = lit('\\') >> ~char_(' ');

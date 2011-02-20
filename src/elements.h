@@ -35,7 +35,8 @@ enum stattribute_t {
     QUOTE,
     SUB,
     LINK,
-    NBSP
+    NBSP,
+    NEWLINE
 };
 
 struct stext_t;

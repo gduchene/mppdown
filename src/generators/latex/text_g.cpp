@@ -32,7 +32,7 @@ latex::text_g::text_g() : text_g::base_type(text_) {
            | &uint_(QUOTE) << L"``" << +text_ << L"''"
            | &uint_(SUB) << L"_{" << +text_ << '}';
 
-    atom_ = &uint_(NBSP) << '~';
+    atom_ = &uint_(NBSP) << '~' | &uint_(NEWLINE) << L"\\\\" << eol;
 
     pstext_ = &uint_(LINK) << L"\\href{" << ptext_[_1 = ph::at_c<2>(_val)] 
                            << L"}{" << (+text_)[_1 = ph::at_c<1>(_val)] << '}';
