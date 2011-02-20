@@ -23,12 +23,6 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 typedef std::wstring::iterator iiterator;
 typedef std::back_insert_iterator<std::wstring> oiterator;
 
-struct stext_t;
-struct pstext_t;
-typedef boost::variant<boost::recursive_wrapper<stext_t>, 
-                       boost::recursive_wrapper<pstext_t>,
-                       std::wstring> text_t;
-
 enum stattribute_t {
     EMPH,
     SEMPH,
@@ -40,8 +34,16 @@ enum stattribute_t {
     SUPER,
     QUOTE,
     SUB,
-    LINK
+    LINK,
+    NBSP
 };
+
+struct stext_t;
+struct pstext_t;
+typedef boost::variant<boost::recursive_wrapper<stext_t>, 
+                       boost::recursive_wrapper<pstext_t>,
+                       stattribute_t,
+                       std::wstring> text_t;
 
 struct stext_t {
     stattribute_t attribute;

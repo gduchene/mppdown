@@ -20,7 +20,7 @@ text_p::text_p() : text_p::base_type(text_) {
     using namespace ph;
     using qi::standard_wide::char_;
 
-    text_ = stext_(_r1) | pstext_(_r1) | ptext_(_r1);
+    text_ = stext_(_r1) | pstext_(_r1) | atom_ | ptext_(_r1);
 
     stext_ = lit("***") >> attr(VSEMPH) >> +text_(_r1) >> "***"
            | lit("**") >> attr(SEMPH) >> +text_(_r1) >> "**"
@@ -37,7 +37,9 @@ text_p::text_p() : text_p::base_type(text_) {
     pstext_ = lit('[') >> attr(LINK) >> +text_(val(L"]")) >> ']' >>
               lit('(') >> ptext_(val(L")")) >> ')';
 
+    atom_ = lit(L"\\ ") >> attr(NBSP);
+
     ptext_ = +(echar_ | rchar_(_r1));
-    echar_ = lit('\\') >> char_;
-    rchar_ = char_ - char_(_r1);
+    echar_ = lit('\\') >> ~char_(' ');
+    rchar_ = ~char_('\\') - char_(_r1);
 }

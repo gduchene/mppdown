@@ -27,6 +27,7 @@ struct text_p : qi::grammar<iiterator, text_t(std::wstring)> {
     qi::rule<iiterator, text_t(std::wstring)> text_;
     qi::rule<iiterator, stext_t(std::wstring)> stext_;
     qi::rule<iiterator, pstext_t(std::wstring)> pstext_;
+    qi::rule<iiterator, stattribute_t()> atom_;
     qi::rule<iiterator, std::wstring(std::wstring)> ptext_;
     qi::rule<iiterator, wchar_t()> echar_;
     qi::rule<iiterator, wchar_t(std::wstring)> rchar_;

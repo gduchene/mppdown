@@ -28,6 +28,7 @@ struct text_g : ka::grammar<oiterator, text_t()> {
     ka::rule<oiterator, text_t()> text_;
     ka::rule<oiterator, stext_t()> stext_;
     ka::rule<oiterator, pstext_t()> pstext_;
+    ka::rule<oiterator, stattribute_t()> atom_;
     ka::rule<oiterator, std::wstring()> ptext_;
 
     text_g();
