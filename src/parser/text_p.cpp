@@ -40,6 +40,6 @@ text_p::text_p() : text_p::base_type(text_) {
     atom_ = lit(L"\\ ") >> attr(NBSP) | lit('\\') >> eol >> attr(NEWLINE);
 
     ptext_ = +(echar_ | rchar_(_r1));
-    echar_ = lit('\\') >> ~char_(' ');
+    echar_ = lit('\\') >> ~char_(L" \n");
     rchar_ = ~char_('\\') - char_(_r1);
 }
