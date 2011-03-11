@@ -16,5 +16,5 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "latex_g.h"
 
 latex_g::latex_g() : latex_g::base_type(latex_) {
-    latex_ = +text_;
+    latex_ = +paragraph_;
 }

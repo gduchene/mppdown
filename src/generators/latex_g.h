@@ -17,13 +17,13 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #define _MPPDOWN_LATEX_G
 #include <boost/spirit/include/karma.hpp>
 #include "../elements.h"
-#include "latex/text_g.h"
+#include "latex/paragraph_g.h"
 
 namespace ka = boost::spirit::karma;
 
 struct latex_g : ka::grammar<oiterator, document_t()> {
     ka::rule<oiterator, document_t()> latex_;
-    latex::text_g text_;
+    latex::paragraph_g paragraph_;
 
     latex_g();
 };

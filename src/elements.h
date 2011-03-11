@@ -57,7 +57,8 @@ struct pstext_t {
     std::wstring parameter;
 };
 
-typedef std::vector<text_t> document_t;
+typedef std::vector<text_t> paragraph_t;
+typedef std::vector<paragraph_t> document_t;
 
 BOOST_FUSION_ADAPT_STRUCT (stext_t,
                            (stattribute_t, attribute)

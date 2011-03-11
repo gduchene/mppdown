@@ -13,19 +13,8 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#ifndef _MPPDOWN_DOCUMENT_P
-#define _MPPDOWN_DOCUMENT_P
-#include <boost/spirit/include/qi.hpp>
-#include "../elements.h"
 #include "paragraph_p.h"
 
-namespace qi = boost::spirit::qi;
-namespace ph = boost::phoenix;
-
-struct document_p : qi::grammar<iiterator, document_t()> {
-    qi::rule<iiterator, document_t()> document_;
-    paragraph_p paragraph_;
-
-    document_p();
-};
-#endif
+paragraph_p::paragraph_p() : paragraph_p::base_type(paragraph_) {
+    paragraph_ = +text_(ph::val(L"*`$^@["));
+}

@@ -13,19 +13,20 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#ifndef _MPPDOWN_DOCUMENT_P
-#define _MPPDOWN_DOCUMENT_P
-#include <boost/spirit/include/qi.hpp>
-#include "../elements.h"
-#include "paragraph_p.h"
+#ifndef _MPPDOWN_LATEX_PARAGRAPH_G
+#define _MPPDOWN_LATEX_PARAGRAPH_G
+#include <boost/spirit/include/karma.hpp>
+#include "../../elements.h"
+#include "text_g.h"
 
-namespace qi = boost::spirit::qi;
-namespace ph = boost::phoenix;
+namespace ka = boost::spirit::karma;
 
-struct document_p : qi::grammar<iiterator, document_t()> {
-    qi::rule<iiterator, document_t()> document_;
-    paragraph_p paragraph_;
+namespace latex {
+struct paragraph_g : ka::grammar<oiterator, paragraph_t()> {
+    ka::rule<oiterator, paragraph_t()> paragraph_;
+    text_g text_;
 
-    document_p();
+    paragraph_g();
 };
+}
 #endif
