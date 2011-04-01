@@ -76,7 +76,12 @@ int main(int argc, char** argv) {
     iiterator end = input.end();
     document_t ast;
 
-    if (!qi::parse(begin, end, parser, ast) || begin != end) {
+    try {
+        if (!qi::parse(begin, end, parser, ast) || begin != end) {
+            cerr << "mppdown: error while parsing the file" << endl;
+            return 1;
+        }
+    } catch (...) { // VERY UGLY
         cerr << "mppdown: error while parsing the file" << endl;
         return 1;
     }

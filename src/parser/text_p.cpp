@@ -22,11 +22,11 @@ text_p::text_p() : text_p::base_type(text_) {
 
     text_ = stext_(_r1) | pstext_(_r1) | atom_ | ptext_(_r1);
 
-    stext_ = lit("***") >> attr(VSEMPH) >> +text_(_r1) >> "***"
-           | lit("**") >> attr(SEMPH) >> +text_(_r1) >> "**"
-           | lit('*') >> attr(EMPH) >> +text_(_r1) >> '*'
-           | lit("''") >> attr(SALT) >> +text_(_r1)>> "''"
-           | lit('\'') >> attr(ALT) >> +text_(_r1) >> '\''
+    stext_ = lit("***") >> attr(VSEMPH) >> +text_(ph::val(L"*'`$@_[")) >> "***"
+           | lit("**") >> attr(SEMPH) >> +text_(ph::val(L"*'`$@_[")) >> "**"
+           | lit('*') >> attr(EMPH) >> +text_(ph::val(L"*'`$@_[")) >> '*'
+           | lit("''") >> attr(SALT) >> +text_(ph::val(L"*'`$@_["))>> "''"
+           | lit('\'') >> attr(ALT) >> +text_(ph::val(L"*'`$@_[")) >> '\''
            | lit('`') >> attr(CODE) >> +ptext_(val(L"`")) >> '`'
            | lit('$') >> attr(MATH) >> +ptext_(val(L"$")) >> '$'
            | lit("^{") >> attr(SUPER) >> +text_(val(L"*'`$^}[")) >> '}'

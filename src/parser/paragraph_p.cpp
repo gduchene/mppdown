@@ -16,5 +16,5 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "paragraph_p.h"
 
 paragraph_p::paragraph_p() : paragraph_p::base_type(paragraph_) {
-    paragraph_ = +text_(ph::val(L"*`$^@["));
+    paragraph_ = +line_ > qi::eol;
 }

@@ -17,14 +17,14 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #define _MPPDOWN_PARAGRAPH_P
 #include <boost/spirit/include/qi.hpp>
 #include "../elements.h"
-#include "text_p.h"
+#include "line_p.h"
 
 namespace qi = boost::spirit::qi;
 namespace ph = boost::phoenix;
 
 struct paragraph_p : qi::grammar<iiterator, paragraph_t()> {
     qi::rule<iiterator, paragraph_t()> paragraph_;
-    text_p text_;
+    line_p line_;
 
     paragraph_p();
 };
