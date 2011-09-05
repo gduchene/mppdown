@@ -13,8 +13,20 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#include "latex_g.h"
+#ifndef _MPPDOWN_LATEX_DOCUMENT_G
+#define _MPPDOWN_LATEX_DOCUMENT_G
+#include <boost/spirit/include/karma.hpp>
+#include "../../elements.h"
+#include "paragraph_g.h"
 
-latex_g::latex_g() : latex_g::base_type(latex_) {
-    latex_ = +paragraph_;
+namespace ka = boost::spirit::karma;
+
+namespace latex {
+struct document_g : ka::grammar<oiterator, document_t()> {
+    ka::rule<oiterator, document_t()> document_;
+    paragraph_g paragraph_;
+
+    document_g();
+};
 }
+#endif

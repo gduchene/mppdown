@@ -20,7 +20,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include <iostream>
 #include <string>
 #include "elements.h"
-#include "generators/latex_g.h"
+#include "generators/latex/document_g.h"
 #include "parser/document_p.h"
 
 namespace ka = boost::spirit::karma;
@@ -86,7 +86,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    latex_g generator;
+    latex::document_g generator;
     wstring output;
     oiterator sink(output);
 
