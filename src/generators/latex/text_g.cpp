@@ -20,7 +20,7 @@ latex::text_g::text_g() : text_g::base_type(text_) {
     using ka::standard_wide::char_;
 
     text_ = stext_ | pstext_ | atom_ | ptext_;
-    
+
     stext_ = &uint_(EMPH) << L"\\emph{" << +text_ << '}'
            | &uint_(SEMPH) << L"\\textit{\\emph{" << +text_ << L"}}"
            | &uint_(VSEMPH) << L"\\texttt{\\textit{\\emph{" << +text_ << L"}}}"
@@ -34,7 +34,7 @@ latex::text_g::text_g() : text_g::base_type(text_) {
 
     atom_ = &uint_(NBSP) << '~' | &uint_(NEWLINE) << L"\\\\" << eol;
 
-    pstext_ = &uint_(LINK) << L"\\href{" << ptext_[_1 = ph::at_c<2>(_val)] 
+    pstext_ = &uint_(LINK) << L"\\href{" << ptext_[_1 = ph::at_c<2>(_val)]
                            << L"}{" << (+text_)[_1 = ph::at_c<1>(_val)] << '}';
 
     ptext_ = +char_;

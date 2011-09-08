@@ -41,7 +41,7 @@ enum stattribute_t {
 
 struct stext_t;
 struct pstext_t;
-typedef boost::variant<boost::recursive_wrapper<stext_t>, 
+typedef boost::variant<boost::recursive_wrapper<stext_t>,
                        boost::recursive_wrapper<pstext_t>,
                        stattribute_t,
                        std::wstring> text_t;

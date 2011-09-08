@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
     }
 
     wifstream ifile(variables["input"].as<string>().c_str());
- 
+
     if (ifile.fail()) {
         cerr << "mppdown: error while reading the file" << endl;
         return 1;
