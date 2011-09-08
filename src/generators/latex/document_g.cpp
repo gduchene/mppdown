@@ -16,5 +16,5 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "document_g.h"
 
 latex::document_g::document_g() : document_g::base_type(document_) {
-    document_ = +paragraph_;
+    document_ = +(paragraph_ << ka::eol);
 }
