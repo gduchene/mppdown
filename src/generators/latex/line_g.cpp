@@ -16,5 +16,5 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "line_g.h"
 
 latex::line_g::line_g() : line_g::base_type(line_) {
-    line_ = +text_ << ka::eol;
+    line_ = +text_;
 }

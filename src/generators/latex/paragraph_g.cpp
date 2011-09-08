@@ -16,5 +16,5 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "paragraph_g.h"
 
 latex::paragraph_g::paragraph_g() : paragraph_g::base_type(paragraph_) {
-    paragraph_ = heading_ | (+line_ << ka::eol);
+    paragraph_ = heading_ | +(line_ << ka::eol);
 }
