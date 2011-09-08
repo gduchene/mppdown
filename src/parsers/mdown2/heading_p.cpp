@@ -13,8 +13,15 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#include "paragraph_p.h"
+#include "heading_p.h"
 
-mdown2::paragraph_p::paragraph_p() : paragraph_p::base_type(paragraph_) {
-    paragraph_ = heading_ | (+line_ > qi::eol);
+mdown2::heading_p::heading_p() : heading_p::base_type(heading_) {
+    using qi::lit;
+
+    heading_ = prefix_ >> *lit(' ') >> line_ >> qi::eol;
+    prefix_ = lit("#####") >> qi::attr(HEADING_5)
+            | lit("####") >> qi::attr(HEADING_4)
+            | lit("###") >> qi::attr(HEADING_3)
+            | lit("##") >> qi::attr(HEADING_2)
+            | lit('#') >> qi::attr(HEADING_1);
 }

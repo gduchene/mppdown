@@ -58,7 +58,23 @@ struct pstext_t {
 };
 
 typedef std::vector<text_t> line_t;
-typedef std::vector<line_t> paragraph_t;
+
+enum hattribute_t {
+    HEADING_1,
+    HEADING_2,
+    HEADING_3,
+    HEADING_4,
+    HEADING_5
+};
+
+struct heading_t {
+    hattribute_t level;
+    line_t contents;
+};
+
+typedef boost::variant<heading_t,
+                       std::vector<line_t> > paragraph_t;
+
 typedef std::vector<paragraph_t> document_t;
 
 BOOST_FUSION_ADAPT_STRUCT (stext_t,
@@ -70,5 +86,10 @@ BOOST_FUSION_ADAPT_STRUCT (pstext_t,
                            (stattribute_t, attribute)
                            (std::vector<text_t>, value)
                            (std::wstring, parameter)
+                          )
+
+BOOST_FUSION_ADAPT_STRUCT (heading_t,
+                           (hattribute_t, level)
+                           (line_t, contents)
                           )
 #endif

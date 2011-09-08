@@ -17,6 +17,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #define _MPPDOWN_LATEX_PARAGRAPH_G
 #include <boost/spirit/include/karma.hpp>
 #include "../../elements.h"
+#include "heading_g.h"
 #include "line_g.h"
 
 namespace ka = boost::spirit::karma;
@@ -24,6 +25,7 @@ namespace ka = boost::spirit::karma;
 namespace latex {
 struct paragraph_g : ka::grammar<oiterator, paragraph_t()> {
     ka::rule<oiterator, paragraph_t()> paragraph_;
+    heading_g heading_;
     line_g line_;
 
     paragraph_g();

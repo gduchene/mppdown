@@ -13,8 +13,21 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#include "paragraph_p.h"
+#ifndef _MPPDOWN_MDOWN2_HEADING_P
+#define _MPPDOWN_MDOWN2_HEADING_P
+#include <boost/spirit/include/qi.hpp>
+#include "../../elements.h"
+#include "line_p.h"
 
-mdown2::paragraph_p::paragraph_p() : paragraph_p::base_type(paragraph_) {
-    paragraph_ = heading_ | (+line_ > qi::eol);
+namespace qi = boost::spirit::qi;
+
+namespace mdown2 {
+struct heading_p : qi::grammar<iiterator, heading_t()> {
+    qi::rule<iiterator, heading_t()> heading_;
+    qi::rule<iiterator, hattribute_t()> prefix_;
+    line_p line_;
+
+    heading_p();
+};
 }
+#endif

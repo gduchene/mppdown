@@ -17,6 +17,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #define _MPPDOWN_MDOWN2_PARAGRAPH_P
 #include <boost/spirit/include/qi.hpp>
 #include "../../elements.h"
+#include "heading_p.h"
 #include "line_p.h"
 
 namespace qi = boost::spirit::qi;
@@ -25,6 +26,7 @@ namespace ph = boost::phoenix;
 namespace mdown2 {
 struct paragraph_p : qi::grammar<iiterator, paragraph_t()> {
     qi::rule<iiterator, paragraph_t()> paragraph_;
+    heading_p heading_;
     line_p line_;
 
     paragraph_p();

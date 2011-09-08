@@ -13,8 +13,13 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#include "paragraph_p.h"
+#include "heading_g.h"
 
-mdown2::paragraph_p::paragraph_p() : paragraph_p::base_type(paragraph_) {
-    paragraph_ = heading_ | (+line_ > qi::eol);
+latex::heading_g::heading_g() : heading_g::base_type(heading_) {
+    heading_ = element_ << ka::eol;
+    element_ = &ka::uint_(HEADING_1) << L"\\section*{" << line_ << '}'
+             | &ka::uint_(HEADING_2) << L"\\subsection*{" << line_ << '}'
+             | &ka::uint_(HEADING_3) << L"\\subsubsection*{" << line_ << '}'
+             | &ka::uint_(HEADING_4) << L"\\paragraph{" << line_ << '}'
+             | &ka::uint_(HEADING_5) << L"\\subparagraph{" << line_ << '}';
 }
