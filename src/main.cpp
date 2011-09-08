@@ -21,7 +21,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include <string>
 #include "elements.h"
 #include "generators/latex/document_g.h"
-#include "parser/document_p.h"
+#include "parsers/mdown2/document_p.h"
 
 namespace ka = boost::spirit::karma;
 namespace po = boost::program_options;
@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
 
     ifile.close();
 
-    document_p parser;
+    mdown2::document_p parser;
     iiterator begin = input.begin();
     iiterator end = input.end();
     document_t ast;

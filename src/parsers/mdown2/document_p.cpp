@@ -13,8 +13,8 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#include "paragraph_p.h"
+#include "document_p.h"
 
-paragraph_p::paragraph_p() : paragraph_p::base_type(paragraph_) {
-    paragraph_ = +line_ > qi::eol;
+mdown2::document_p::document_p() : document_p::base_type(document_) {
+    document_ = +paragraph_;
 }

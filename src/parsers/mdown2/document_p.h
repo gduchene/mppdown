@@ -13,19 +13,21 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#ifndef _MPPDOWN_LINE_P
-#define _MPPDOWN_LINE_P
+#ifndef _MPPDOWN_MDOWN2_DOCUMENT_P
+#define _MPPDOWN_MDOWN2_DOCUMENT_P
 #include <boost/spirit/include/qi.hpp>
-#include "../elements.h"
-#include "text_p.h"
+#include "../../elements.h"
+#include "paragraph_p.h"
 
 namespace qi = boost::spirit::qi;
 namespace ph = boost::phoenix;
 
-struct line_p : qi::grammar<iiterator, line_t()> {
-    qi::rule<iiterator, line_t()> line_;
-    text_p text_;
+namespace mdown2 {
+struct document_p : qi::grammar<iiterator, document_t()> {
+    qi::rule<iiterator, document_t()> document_;
+    paragraph_p paragraph_;
 
-    line_p();
+    document_p();
 };
+}
 #endif

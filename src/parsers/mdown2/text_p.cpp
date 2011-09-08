@@ -15,7 +15,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 #include "text_p.h"
 
-text_p::text_p() : text_p::base_type(text_) {
+mdown2::text_p::text_p() : text_p::base_type(text_) {
     using namespace qi;
     using namespace ph;
     using qi::standard_wide::char_;

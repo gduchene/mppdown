@@ -13,8 +13,27 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#include "line_p.h"
+#ifndef _MPPDOWN_MDOWN2_TEXT_P
+#define _MPPDOWN_MDOWN2_TEXT_P
+#include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/support_standard_wide.hpp>
+#include <string>
+#include "../../elements.h"
 
-line_p::line_p() : line_p::base_type(line_) {
-    line_ = +text_(ph::val(L"*'`$@_[\n")) > qi::eol;
+namespace qi = boost::spirit::qi;
+namespace ph = boost::phoenix;
+
+namespace mdown2 {
+struct text_p : qi::grammar<iiterator, text_t(std::wstring)> {
+    qi::rule<iiterator, text_t(std::wstring)> text_;
+    qi::rule<iiterator, stext_t(std::wstring)> stext_;
+    qi::rule<iiterator, pstext_t(std::wstring)> pstext_;
+    qi::rule<iiterator, stattribute_t()> atom_;
+    qi::rule<iiterator, std::wstring(std::wstring)> ptext_;
+    qi::rule<iiterator, wchar_t()> echar_;
+    qi::rule<iiterator, wchar_t(std::wstring)> rchar_;
+
+    text_p();
+};
 }
+#endif

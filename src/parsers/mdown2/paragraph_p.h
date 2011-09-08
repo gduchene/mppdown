@@ -13,25 +13,21 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
-#ifndef _MPPDOWN_TEXT_P
-#define _MPPDOWN_TEXT_P
+#ifndef _MPPDOWN_MDOWN2_PARAGRAPH_P
+#define _MPPDOWN_MDOWN2_PARAGRAPH_P
 #include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/support_standard_wide.hpp>
-#include <string>
-#include "../elements.h"
+#include "../../elements.h"
+#include "line_p.h"
 
 namespace qi = boost::spirit::qi;
 namespace ph = boost::phoenix;
 
-struct text_p : qi::grammar<iiterator, text_t(std::wstring)> {
-    qi::rule<iiterator, text_t(std::wstring)> text_;
-    qi::rule<iiterator, stext_t(std::wstring)> stext_;
-    qi::rule<iiterator, pstext_t(std::wstring)> pstext_;
-    qi::rule<iiterator, stattribute_t()> atom_;
-    qi::rule<iiterator, std::wstring(std::wstring)> ptext_;
-    qi::rule<iiterator, wchar_t()> echar_;
-    qi::rule<iiterator, wchar_t(std::wstring)> rchar_;
+namespace mdown2 {
+struct paragraph_p : qi::grammar<iiterator, paragraph_t()> {
+    qi::rule<iiterator, paragraph_t()> paragraph_;
+    line_p line_;
 
-    text_p();
+    paragraph_p();
 };
+}
 #endif
