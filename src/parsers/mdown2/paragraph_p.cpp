@@ -16,5 +16,5 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "paragraph_p.h"
 
 mdown2::paragraph_p::paragraph_p() : paragraph_p::base_type(paragraph_) {
-    paragraph_ = heading_ | (+line_ > qi::eol);
+    paragraph_ = heading_ | (+line_ > (qi::eol | qi::eoi));
 }
