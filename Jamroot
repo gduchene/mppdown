@@ -4,4 +4,7 @@ local DIST = [ os.environ DIST ] ;
 
 exe mppdown : [ glob-tree *.cpp ] : <linkflags>-lboost_program_options ;
 
-install dist : mppdown : <location>$(DIST)/usr/bin : <variant>release ;
+alias dist : bin man ;
+
+install bin : mppdown : <location>$(DIST)/usr/bin : <variant>release ;
+install man : mppdown.1 : <location>$(DIST)/usr/share/man/man1 ;

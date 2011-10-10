@@ -1,0 +1,32 @@
+.Dd Oct 22, 2011
+.Dt MPPDOWN 1 1
+.Sh NAME
+.Nm mppdown
+.Nd C++ implementation of the mdown2 specification
+.Sh SYNOPSIS
+.Nm
+.Op Fl h
+.Op Fl o Ar output
+.Op Ar input
+.Sh DESCRIPTION
+.Nm mppdown
+is a C++ program that reads an
+.Ar input
+file written in the mdown2 format and that returns a LaTeX-formatted
+output file on the standard output or
+.Ar output
+if specified.
+.Pp
+Its arguments are:
+.Bl -tag -width Ds
+.It Fl h
+Displays a help message.
+.It Fl o Ar output
+Writes to
+.Ar output
+instead of standard output.
+.It Ar input
+The input file to read.
+.El
+.Sh EXIT STATUS
+.Ex -std
