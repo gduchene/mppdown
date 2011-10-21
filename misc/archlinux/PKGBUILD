@@ -1,0 +1,38 @@
+# Maintainer: Grégoire Duchêne <gduchene@fastmail.net>
+pkgname=mppdown-git
+pkgver=20110906
+pkgrel=1
+pkgdesc="A C++ implementation of the mdown specification"
+arch=('i686' 'x86_64')
+url="http://repo.or.cz/w/mppdown.git"
+license=('custom:ISC')
+depends=('boost-libs')
+makedepends=('boost-build' 'boost')
+
+_gitroot="git://repo.or.cz/mppdown.git"
+_gitname="mppdown"
+
+build() {
+    cd $srcdir
+    msg "Connecting to the GIT server...."
+
+    if [[ -d $srcdir/$_gitname ]] ; then
+        cd $_gitname
+        git pull origin
+        msg "The local files are updated."
+    else
+        git clone $_gitroot
+    fi
+
+    msg "GIT checkout done"
+    msg "Starting make..."
+    msg "Please be aware that compilation may take some time!"
+
+    cd ${srcdir}/${_gitname}
+    bjam release mppdown
+}
+
+package() {
+    cd ${srcdir}/${_gitname}
+    DIST=${pkgdir} bjam release dist
+}
